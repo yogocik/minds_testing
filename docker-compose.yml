@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  mind:
+    image: mindsdb/mindsdb
+    container_name: mind
+    environment:
+      MINDSDB_DB_CON: 'postgresql://postgres:123456@host.docker.internal:5432/mindsdb'
+    volumes:
+      - ./mind_storage:/root/mdb_storage # Static data
+      - ./creds:/creds # Secret data
+    ports:
+      - "47334:47334" # port 47334 to access MindsDB GUI and HTTP API.
+      - "47335:47335" # port 47335 to access MindsDB MySQL API
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
